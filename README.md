@@ -23,4 +23,4 @@ Sigue estos pasos para levantar el entorno de desarrollo:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/TU_USUARIO/prodigitalat.git](https://github.com/TU_USUARIO/prodigitalat.git)
+   git clone [https://github.com/alvarorubio-dev/prodigitalat.git](https://github.com/alvarorubio-dev/prodigitalat.git)
