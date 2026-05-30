@@ -1,0 +1,47 @@
+# ==========================================
+# ProDigital.lat - Reglas de Rastreo (SEO)
+# ==========================================
+
+# Permitir a los motores de búsqueda principales
+User-agent: Googlebot
+Allow: /
+Disallow: /privacidad
+Disallow: /terminos
+
+User-agent: Bingbot
+Allow: /
+Disallow: /privacidad
+Disallow: /terminos
+
+User-agent: Slurp
+Allow: /
+Disallow: /privacidad
+Disallow: /terminos
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /privacidad
+Disallow: /terminos
+
+# Bloquear bots de IA y Scrapers (Ahorro de recursos y protección de copy)
+User-agent: GPTBot
+Disallow: /
+User-agent: ChatGPT-User
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: Anthropic-ai
+Disallow: /
+User-agent: Omgili
+Disallow: /
+User-agent: Omgilibot
+Disallow: /
+
+# Reglas generales
+User-agent: *
+Disallow: /privacidad
+Disallow: /terminos
+Allow: /
+
+# Enlace directo al Sitemap para forzar la indexación
+Sitemap: https://prodigital.lat/sitemap.xml
