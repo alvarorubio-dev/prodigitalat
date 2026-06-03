@@ -1,6 +1,7 @@
 // /api/send.js
 import { Resend } from "resend";
 
+console.log("API KEY:", process.env.RESEND_API_KEY ? "OK" : "MISSING");
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Método no permitido" });
   }
 
-  const { name, phone, business } = JSON.parse(req.body);
+  const { name, phone, business } = req.body;
 
   try {
     await resend.emails.send({
@@ -27,7 +28,10 @@ export default async function handler(req, res) {
 
     res.status(200).json({ message: "Correo enviado correctamente" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al enviar el correo" });
+    console.error("RESEND ERROR:", error);
+
+    return res.status(500).json({
+      error: error?.message || error,
+    });
   }
 }
