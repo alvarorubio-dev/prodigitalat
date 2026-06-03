@@ -88,9 +88,9 @@ export default function Footer({ onOpenChat }: FooterProps) {
             aria-label="Navegación del pie de página"
           >
             <div className="flex flex-col gap-3">
-              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-1">
+              <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-1">
                 Navegación
-              </h4>
+              </h3>
               {["Cómo Funciona", "Beneficios", "Precios", "FAQs"].map(
                 (link) => (
                   <a
@@ -104,9 +104,9 @@ export default function Footer({ onOpenChat }: FooterProps) {
               )}
             </div>
             <div className="flex flex-col gap-3">
-              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-1">
+              <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-1">
                 Legal
-              </h4>
+              </h3>
               <Link
                 to="/privacidad"
                 aria-label="Leer Políticas de Privacidad"
