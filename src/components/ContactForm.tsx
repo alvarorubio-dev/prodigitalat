@@ -39,12 +39,21 @@ export default function ContactForm() {
     setSubmit({ status: "loading", message: "" });
 
     try {
-      await new Promise((res) => setTimeout(res, 800));
-      setSubmit({
-        status: "success",
-        message: "¡Listo! Te contactaremos en menos de 24 horas.",
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-      setForm({ name: "", phone: "", business: "" });
+
+      if (res.ok) {
+        setSubmit({
+          status: "success",
+          message: "¡Listo! Te contactaremos en menos de 24 horas.",
+        });
+        setForm({ name: "", phone: "", business: "" });
+      } else {
+        throw new Error("Error en el envío");
+      }
     } catch {
       setSubmit({
         status: "error",
@@ -123,59 +132,38 @@ export default function ContactForm() {
                   aria-label="Formulario de contacto"
                 >
                   <div className="flex flex-col gap-5">
-                    <div>
-                      <label htmlFor="contact-name" className="sr-only">
-                        Tu Nombre
-                      </label>
-                      <input
-                        id="contact-name"
-                        name="name"
-                        type="text"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Tu Nombre"
-                        aria-label="Tu nombre completo"
-                        aria-required="true"
-                        className={inputClass}
-                      />
-                    </div>
+                    <input
+                      id="contact-name"
+                      name="name"
+                      type="text"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tu Nombre"
+                      className={inputClass}
+                    />
 
-                    <div>
-                      <label htmlFor="contact-phone" className="sr-only">
-                        Tu Teléfono
-                      </label>
-                      <input
-                        id="contact-phone"
-                        name="phone"
-                        type="tel"
-                        value={form.phone}
-                        onChange={handleChange}
-                        required
-                        placeholder="Tu Teléfono"
-                        aria-label="Tu número de teléfono"
-                        aria-required="true"
-                        className={inputClass}
-                      />
-                    </div>
+                    <input
+                      id="contact-phone"
+                      name="phone"
+                      type="tel"
+                      value={form.phone}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tu Teléfono"
+                      className={inputClass}
+                    />
 
-                    <div>
-                      <label htmlFor="contact-business" className="sr-only">
-                        ¿De qué es tu negocio?
-                      </label>
-                      <input
-                        id="contact-business"
-                        name="business"
-                        type="text"
-                        value={form.business}
-                        onChange={handleChange}
-                        required
-                        placeholder="¿De qué es tu negocio? (Ej. Plomería, Roofing)"
-                        aria-label="Tipo de negocio, por ejemplo Plomería o Roofing"
-                        aria-required="true"
-                        className={inputClass}
-                      />
-                    </div>
+                    <input
+                      id="contact-business"
+                      name="business"
+                      type="text"
+                      value={form.business}
+                      onChange={handleChange}
+                      required
+                      placeholder="¿De qué es tu negocio? (Ej. Plomería, Roofing)"
+                      className={inputClass}
+                    />
 
                     {submit.status === "error" && (
                       <p role="alert" className="text-red-500 text-sm">
@@ -186,7 +174,6 @@ export default function ContactForm() {
                     <button
                       type="submit"
                       disabled={submit.status === "loading"}
-                      aria-label="Solicitar mi página web por $399"
                       className="w-full bg-orange-600 hover:bg-orange-700 active:bg-orange-800 disabled:opacity-70 disabled:cursor-not-allowed text-white font-black text-base sm:text-lg py-4 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-orange-600/30 hover:shadow-orange-600/50 hover:-translate-y-0.5"
                     >
                       {submit.status === "loading"
