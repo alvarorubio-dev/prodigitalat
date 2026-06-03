@@ -109,7 +109,7 @@ export default function Header({ onOpenChat }: { onOpenChat: () => void }) {
             <button
               onClick={onOpenChat}
               aria-label="Hablar por WhatsApp para cotización"
-              className="flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-orange-900/30 hover:shadow-orange-900/50 hover:-translate-y-0.5 cursor-pointer"
+              className="flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-orange-900/30 hover:shadow-orange-900/50 hover:-translate-y-0.5 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <MessageCircle className="w-4 h-4" aria-hidden="true" />
               Hablar por WhatsApp
@@ -166,7 +166,7 @@ export default function Header({ onOpenChat }: { onOpenChat: () => void }) {
                   setMenuOpen(false);
                 }}
                 aria-label="Hablar por WhatsApp para cotización"
-                className="mt-2 flex items-center justify-center gap-2 bg-brand-orange text-white font-semibold py-3 px-5 rounded-xl cursor-pointer"
+                className="mt-2 flex items-center justify-center gap-2 bg-brand-orange text-white font-semibold py-3 px-5 rounded-xl cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <MessageCircle className="w-4 h-4" aria-hidden="true" />
                 Hablar por WhatsApp

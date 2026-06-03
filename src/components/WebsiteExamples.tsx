@@ -43,6 +43,8 @@ const examples = [
     badge: "Se Habla Español",
     stars: 5,
     reviews: "64 reviews",
+    imgAlt:
+      "Ejemplo de website profesional para empresa de plomería con disponibilidad 24/7",
     image: "/plumbers_houston.png",
     liveUrl: "https://houstonflowplumbing.vercel.app/",
     stats: [
@@ -65,6 +67,7 @@ const examples = [
     badge: "Se Habla Español",
     stars: 5,
     reviews: "52 reviews",
+    imgAlt: "",
     stats: [
       { label: "Llamadas/semana", value: "+6" },
       { label: "Google rank", value: "#1" },
@@ -200,6 +203,7 @@ export default function WebsiteExamples({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
+                    aria-label={`Ver sitio en vivo: ${ex.title} - ${ex.location}`}
                   >
                     <div
                       className="w-full rounded-xl overflow-hidden border border-slate-100 shadow-md"
@@ -208,6 +212,11 @@ export default function WebsiteExamples({
                       <img
                         src={ex.image}
                         alt={ex.imgAlt}
+                        loading="lazy"
+                        width={686}
+                        height={220}
+                        srcSet={`${ex.image}?w=400 400w, ${ex.image}?w=686 686w, ${ex.image}?w=1372 1372w`}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="w-full object-cover object-top"
                         style={{ height: "220px" }}
                       />
@@ -228,6 +237,7 @@ export default function WebsiteExamples({
                   href={ex.liveUrl || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Ver sitio en vivo de ${ex.title}`}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm transition-all duration-200 border-2 border-slate-200 text-slate-700 hover:border-navy hover:text-navy"
                 >
                   <ExternalLink className="w-4 h-4" /> Ver sitio en vivo

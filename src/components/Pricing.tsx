@@ -139,7 +139,10 @@ export default function Pricing({ onOpenChat }: { onOpenChat: () => void }) {
                     <div className="bg-white text-brand-orange text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wide shadow-lg">
                       Más Popular
                     </div>
-                    <div className="flex gap-0.5" aria-label="5 estrellas">
+                    <div
+                      className="flex gap-0.5"
+                      aria-label="Calificación: 5 de 5 estrellas"
+                    >
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}

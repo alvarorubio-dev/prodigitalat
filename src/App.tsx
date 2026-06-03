@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -18,9 +18,22 @@ import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ChatModal from "./components/ChatModal";
 
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsConditions from "./pages/TermsConditions";
-import NotFound from "./pages/NotFound";
+// Lazy load non-critical routes
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsConditions = lazy(() => import("./pages/TermsConditions"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Loading fallback component
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-navy flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-8 h-8 border-4 border-brand-orange border-t-transparent rounded-full animate-spin" />
+        <p className="text-slate-400 text-sm">Cargando...</p>
+      </div>
+    </div>
+  );
+}
 
 function LandingPage({ onOpenModal }: { onOpenModal: () => void }) {
   return (
@@ -59,9 +72,30 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<LandingPage onOpenModal={openModal} />} />
-          <Route path="/privacidad" element={<PrivacyPolicy />} />
-          <Route path="/terminos" element={<TermsConditions />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/privacidad"
+            element={
+              <Suspense fallback={<LoadingFallback />}>
+                <PrivacyPolicy />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/terminos"
+            element={
+              <Suspense fallback={<LoadingFallback />}>
+                <TermsConditions />
+              </Suspense>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<LoadingFallback />}>
+                <NotFound />
+              </Suspense>
+            }
+          />
         </Routes>
       </BrowserRouter>
 
