@@ -1,14 +1,15 @@
-import { motion } from 'framer-motion';
-import { WHATSAPP_URL } from '../constants';
+import { motion } from "framer-motion";
 
-export default function WhatsAppButton() {
+export default function WhatsAppButton({
+  onOpenChat,
+}: {
+  onOpenChat: () => void;
+}) {
   return (
-    <a
-      href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      onClick={onOpenChat}
       aria-label="Contactar por WhatsApp"
-      className="fixed bottom-6 right-6 z-50"
+      className="fixed bottom-6 right-6 z-50 cursor-pointer border-0 bg-transparent"
     >
       <div className="relative pulse-ring">
         <motion.div
@@ -25,6 +26,6 @@ export default function WhatsAppButton() {
           </svg>
         </motion.div>
       </div>
-    </a>
+    </button>
   );
 }

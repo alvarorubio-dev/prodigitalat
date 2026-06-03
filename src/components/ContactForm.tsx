@@ -1,7 +1,11 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Phone } from 'lucide-react';
-import { useScrollAnimation, fadeInUp, staggerContainer } from '../hooks/useScrollAnimation';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Phone } from "lucide-react";
+import {
+  useScrollAnimation,
+  fadeInUp,
+  staggerContainer,
+} from "../hooks/useScrollAnimation";
 
 interface FormState {
   name: string;
@@ -10,40 +14,47 @@ interface FormState {
 }
 
 interface SubmitState {
-  status: 'idle' | 'loading' | 'success' | 'error';
+  status: "idle" | "loading" | "success" | "error";
   message: string;
 }
 
 export default function ContactForm() {
   const { ref, controls } = useScrollAnimation();
-  const [form, setForm] = useState<FormState>({ name: '', phone: '', business: '' });
-  const [submit, setSubmit] = useState<SubmitState>({ status: 'idle', message: '' });
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    phone: "",
+    business: "",
+  });
+  const [submit, setSubmit] = useState<SubmitState>({
+    status: "idle",
+    message: "",
+  });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmit({ status: 'loading', message: '' });
+    setSubmit({ status: "loading", message: "" });
 
     try {
-      await new Promise(res => setTimeout(res, 800));
+      await new Promise((res) => setTimeout(res, 800));
       setSubmit({
-        status: 'success',
-        message: '¡Listo! Te contactaremos en menos de 24 horas.',
+        status: "success",
+        message: "¡Listo! Te contactaremos en menos de 24 horas.",
       });
-      setForm({ name: '', phone: '', business: '' });
+      setForm({ name: "", phone: "", business: "" });
     } catch {
       setSubmit({
-        status: 'error',
-        message: 'Algo salió mal. Intenta de nuevo.',
+        status: "error",
+        message: "Algo salió mal. Intenta de nuevo.",
       });
     }
   }
 
   const inputClass =
-    'w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-slate-800 text-base placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200';
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-slate-800 text-base placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200";
 
   return (
     <section
@@ -67,28 +78,50 @@ export default function ContactForm() {
               id="contact-heading"
               className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight mb-6"
             >
-              ¿Prefieres que te{' '}
-              <span className="text-orange-400">llamemos para planear tu nueva Página Web?</span>
+              ¿Prefieres que te{" "}
+              <span className="text-orange-400">
+                llamemos para planear tu nueva Página Web?
+              </span>
             </h2>
             <p className="text-slate-300 text-lg leading-relaxed">
-              Déjanos tus datos y un especialista en marketing para contractors te contactará en menos de 24 horas. Hablemos de cómo conseguir más leads                locales con tu página web profesional. Free estimate y cero compromisos.
+              Déjanos tus datos y un especialista en marketing para contractors
+              te contactará en menos de 24 horas. Hablemos de cómo conseguir más
+              leads locales con tu página web profesional. Free estimate y cero
+              compromisos.
             </p>
           </motion.div>
 
           <motion.div variants={fadeInUp}>
             <div className="bg-white rounded-3xl p-8 shadow-2xl shadow-black/40">
-              {submit.status === 'success' ? (
+              {submit.status === "success" ? (
                 <div className="text-center py-8">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-                    <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="w-8 h-8 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">¡Mensaje enviado!</h3>
+                  <h3 className="text-xl font-bold text-slate-800 mb-2">
+                    ¡Mensaje enviado!
+                  </h3>
                   <p className="text-slate-500">{submit.message}</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate aria-label="Formulario de contacto">
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  aria-label="Formulario de contacto"
+                >
                   <div className="flex flex-col gap-5">
                     <div>
                       <label htmlFor="contact-name" className="sr-only">
@@ -144,7 +177,7 @@ export default function ContactForm() {
                       />
                     </div>
 
-                    {submit.status === 'error' && (
+                    {submit.status === "error" && (
                       <p role="alert" className="text-red-500 text-sm">
                         {submit.message}
                       </p>
@@ -152,13 +185,13 @@ export default function ContactForm() {
 
                     <button
                       type="submit"
-                      disabled={submit.status === 'loading'}
+                      disabled={submit.status === "loading"}
                       aria-label="Solicitar mi página web por $399"
                       className="w-full bg-orange-600 hover:bg-orange-700 active:bg-orange-800 disabled:opacity-70 disabled:cursor-not-allowed text-white font-black text-base sm:text-lg py-4 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-orange-600/30 hover:shadow-orange-600/50 hover:-translate-y-0.5"
                     >
-                      {submit.status === 'loading'
-                        ? 'Enviando...'
-                        : 'Quiero mi web y empezar a recibir llamadas'}
+                      {submit.status === "loading"
+                        ? "Enviando..."
+                        : "Quiero mi web y empezar a recibir llamadas"}
                     </button>
                   </div>
                 </form>
