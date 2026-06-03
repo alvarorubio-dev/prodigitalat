@@ -150,7 +150,7 @@ export default function ContactForm() {
                       value={form.phone}
                       onChange={handleChange}
                       required
-                      placeholder="Email oTeléfono"
+                      placeholder="Email o Teléfono"
                       className={inputClass}
                     />
 
