@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
+
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ProblemSolution from "./components/ProblemSolution";
@@ -14,15 +16,16 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ChatModal from "./components/ChatModal";
+
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
 import NotFound from "./pages/NotFound";
-import { Analytics } from "@vercel/analytics/react";
 
 function LandingPage({ onOpenModal }: { onOpenModal: () => void }) {
   return (
     <div className="min-h-screen font-sans">
       <Header onOpenChat={onOpenModal} />
+
       <main>
         <Hero onOpenChat={onOpenModal} />
         <ProblemSolution />
@@ -35,19 +38,13 @@ function LandingPage({ onOpenModal }: { onOpenModal: () => void }) {
         <FinalCTA onOpenChat={onOpenModal} />
         <ContactForm />
       </main>
+
       <Footer onOpenChat={onOpenModal} />
       <WhatsAppButton onOpenChat={onOpenModal} />
     </div>
   );
 }
-export default function App({ Component, pageProps }) {
-  return (
-    <>
-      <Component {...pageProps} />
-      <Analytics />
-    </>
-  );
-}
+
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,14 +52,19 @@ export default function App() {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <BrowserRouter>
-      <ChatModal isOpen={isModalOpen} onClose={closeModal} />
-      <Routes>
-        <Route path="/" element={<LandingPage onOpenModal={openModal} />} />
-        <Route path="/privacidad" element={<PrivacyPolicy />} />
-        <Route path="/terminos" element={<TermsConditions />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <ChatModal isOpen={isModalOpen} onClose={closeModal} />
+
+        <Routes>
+          <Route path="/" element={<LandingPage onOpenModal={openModal} />} />
+          <Route path="/privacidad" element={<PrivacyPolicy />} />
+          <Route path="/terminos" element={<TermsConditions />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+
+      <Analytics />
+    </>
   );
 }
