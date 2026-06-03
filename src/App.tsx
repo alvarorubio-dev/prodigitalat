@@ -17,6 +17,7 @@ import ChatModal from "./components/ChatModal";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
 import NotFound from "./pages/NotFound";
+import { Analytics } from "@vercel/analytics/react";
 
 function LandingPage({ onOpenModal }: { onOpenModal: () => void }) {
   return (
@@ -39,7 +40,14 @@ function LandingPage({ onOpenModal }: { onOpenModal: () => void }) {
     </div>
   );
 }
-
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <Component {...pageProps} />
+      <Analytics />
+    </>
+  );
+}
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
